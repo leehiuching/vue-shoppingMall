@@ -1,5 +1,6 @@
-var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
   // 入口文件配置
@@ -33,16 +34,6 @@ module.exports = {
         }]
       },
       {
-        test: /\.scss$/,
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'sass-loader'
-        }]
-      },
-      {
         test: /\.(png|jpg|gif)/,
         use: [{
           loader: 'url-loader',
@@ -57,10 +48,6 @@ module.exports = {
         exclude: /(node_modules)/, // node_modules下面的.js文件会被排除
         use: {
           loader: 'babel-loader',
-          // options里面的东西可以放到.babelrc文件中去,options表示使用的es6的版本
-          // options: {
-          //   presets: ['env']
-          // }
         }
       },
       {
@@ -71,17 +58,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: './src/index.html',
-      template: 'template.html',
+      template: './src/index.html', // 配置要处理的html文件
+      filename: 'index.html',       // 处理后的新文件名称
       title: "hello vue"
-    })
-  ],
-  // webpack-dev-server工具配置
-  devServer: {
-    contentBase: 'dist',
-    port: 7777,
-    open: true,
-    inline: true,
-    progress: true,
-  }
+    }),
+    new VueLoaderPlugin()
+  
+  ]
 }
