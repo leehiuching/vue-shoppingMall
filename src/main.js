@@ -4,6 +4,10 @@ import Vue from "vue";
 import App from "./component/App.vue";
 
 import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+// 导入路由配置
+import routerConfig from "./router/index.js";
 
 new Vue({
   el: '#app',
@@ -11,5 +15,6 @@ new Vue({
   render: function(createElement) {
     // creatElement(App) App根组件渲染到视图中
     return createElement(App)
-  }
+  },
+  router: new VueRouter(routerConfig)
 })
